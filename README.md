@@ -1,3 +1,10 @@
+Streaming App
+by Jennifer Piper
+
+based on tutorials in udemy course Modern React with Redux by Stephen Grider:
+https://www.udemy.com/react-redux/
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
