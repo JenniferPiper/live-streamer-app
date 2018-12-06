@@ -4,7 +4,19 @@ by Jennifer Piper
 based on tutorials in udemy course Modern React with Redux by Stephen Grider:
 https://www.udemy.com/react-redux/
 
+----------------------------------
+## App Setup
 
+* Set up Google OAuth:
+
+  -enable Google OAuth credentials for a new app at `https://console.developers.google.com`
+
+  -create a `.env` file in the root of this app and add the Google Client ID from the last step:
+
+#### `REACT_APP_GOOGLE_OAUTH_CLIENT_ID=<your-google-client-id-goes-here>`
+
+----------------------------------
+## Creat React App Docs:
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
