@@ -4,7 +4,7 @@ class GoogleAuth extends React.Component {
   constructor(props) {
     super(props);
   this.state = {
-    isSignedIn: false,
+    isSignedIn: null,
   }
   this.handleSignIn = this.handleSignIn.bind(this);
   this.handleSignOut = this.handleSignOut.bind(this);
@@ -16,28 +16,34 @@ class GoogleAuth extends React.Component {
         clientId: process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID,
         scope: 'email'
       })
-      .then(() => this.setSignedInState());
+      .then(() => {
+        this.auth = window.gapi.auth2.getAuthInstance();
+        this.setSignedInState();
+
+      });
     });
   }
 
   handleSignIn() {
-    const auth = window.gapi.auth2.getAuthInstance();
-    auth.signIn()
+    this.auth.signIn()
     .then(() => this.setSignedInState());
   }
 
   handleSignOut() {
-    const auth = window.gapi.auth2.getAuthInstance();
-    auth.signOut()
+    this.auth.signOut()
     .then(() => this.setSignedInState());
   }
 
   setSignedInState() {
-    const auth = window.gapi.auth2.getAuthInstance();
-    const googleUserIsSignedIn = auth.isSignedIn.get();
-    console.log('googleUserIsSignedIn: ', googleUserIsSignedIn);
 
-    googleUserIsSignedIn ? this.setState({isSignedIn: true}) : this.setState({isSignedIn: false});
+    // my less concise syntax:
+   // const googleUserIsSignedIn = this.auth.isSignedIn.get();
+   // googleUserIsSignedIn ? this.setState({isSignedIn: true}) : this.setState({isSignedIn: false});
+
+   // tutorial's syntax: 
+   this.setState({ isSignedIn: this.auth.isSignedIn.get()});
+
+   console.log('this.state.IsSignedIn: ', this.state.isSignedIn);
   }
 
   render() {
