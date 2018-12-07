@@ -6,9 +6,9 @@ class GoogleAuth extends React.Component {
   this.state = {
     isSignedIn: null,
   }
-  this.handleSignIn = this.handleSignIn.bind(this);
-  this.handleSignOut = this.handleSignOut.bind(this);
-  this.setSignedInState = this.setSignedInState.bind(this);
+  // this.handleSignIn = this.handleSignIn.bind(this);
+  // this.handleSignOut = this.handleSignOut.bind(this);
+ // this.setSignedInState = this.setSignedInState.bind(this);
   }
   componentDidMount() {
     window.gapi.load('client:auth2', () => {
@@ -24,19 +24,25 @@ class GoogleAuth extends React.Component {
     });
   }
 
-  handleSignIn() {
+
+  // with this syntax, we must explicitly bind 'this' to the component:
+  // handleSignIn() {
+
+  // with arrow function syntax, this method's context is bound to the component automatically:
+
+  handleSignIn = () => {
     this.auth.signIn()
-    .then(() => this.setSignedInState());
+    .then(this.setSignedInState);
   }
 
-  handleSignOut() {
+  handleSignOut = () => {
     this.auth.signOut()
-    .then(() => this.setSignedInState());
+    .then(this.setSignedInState);
   }
 
-  setSignedInState() {
+  setSignedInState = () => {
 
-    // my less concise syntax:
+    // my less concise conditional syntax:
    // const googleUserIsSignedIn = this.auth.isSignedIn.get();
    // googleUserIsSignedIn ? this.setState({isSignedIn: true}) : this.setState({isSignedIn: false});
 
@@ -50,13 +56,14 @@ class GoogleAuth extends React.Component {
     const signedOutJSX = (
       <div>
       <p className='user-message'>You are signed out.</p>
-      <button onClick={this.handleSignIn}>Sign In</button>
+      <button className='ui red google button' onClick={this.handleSignIn}><i className='google icon' />Sign In</button>
       </div>
       );
     const signedInJSX = (
       <div>
     <p className='user-message'>You are signed in.</p>
-    <button onClick={this.handleSignOut}>Sign Out</button>
+    <button className='ui red google button' onClick={this.handleSignOut}>
+    <i className='google icon' />Sign Out</button>
     </div>
     );
     return (
